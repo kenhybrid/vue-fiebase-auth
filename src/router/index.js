@@ -1,23 +1,33 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Home from "../views/Home.vue";
+// //auth
+import Auth from "@/components/auth/auth";
+import Authguard from "./auth-guard";
+// //admin
+import Dashboard from "@/components/blog/Dashboard";
+import Emails from "@/components/blog/Emails";
 
 Vue.use(VueRouter);
 
 const routes = [
+  //client
   {
     path: "/",
-    name: "Home",
-    component: Home
+    name: "Dashboard",
+    component: Dashboard,
+    beforeEnter: Authguard
   },
   {
-    path: "/about",
-    name: "About",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/About.vue")
+    path: "/emails",
+    name: "Emails",
+    component: Emails,
+    beforeEnter: Authguard
+  },
+  // auth
+  {
+    path: "/auth",
+    name: "Auth",
+    component: Auth
   }
 ];
 
